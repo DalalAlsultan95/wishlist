@@ -33,11 +33,16 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'items',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +54,30 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SOCIALACCOUNT_PROVIDORS = {
+'GitHub':{
+        'SCOPE':[
+            'user',
+            'repo',
+            'read:org',
+        ]
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        }
+    }
+
+}
+
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/items/list/"
 
 ROOT_URLCONF = 'wishlist.urls'
 
